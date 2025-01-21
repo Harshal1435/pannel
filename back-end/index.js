@@ -174,25 +174,6 @@
 
 // // //catogoty itself
 
-// // app.get("/category", async (req, res) => {
-// //     try {
-// //         const userId = req.user._id; // Assuming `req.user` contains the logged-in user's info
-
-// //         // Fetch items from the database for the specific user
-// //         const items = await Item.find({ userId }, "category imageUrl");
-
-// //         res.status(200).json({
-// //             message: "Categories retrieved successfully",
-// //             items: items.map(item => ({
-// //                 category: item.category,
-// //                 imageUrl: item.imageUrl,
-// //             })),
-// //         });
-// //     } catch (err) {
-// //         console.error("Error fetching categories:", err);
-// //         res.status(500).json({ message: "An error occurred while fetching the categories" });
-// //     }
-// // });
 
 
 
@@ -879,6 +860,65 @@ app.get("/all-items", async (req, res) => {
         res.status(500).json({ message: "An error occurred while fetching items" });
     }
 });
+
+
+// Fetch Items Grouped by Category Without Authentication
+// app.get("/all-items-by-category", async (req, res) => {
+//     try {
+//         const { minPrice, maxPrice } = req.query;
+
+//         const query = {};
+//         if (minPrice) query.price = { ...query.price, $gte: Number(minPrice) };
+//         if (maxPrice) query.price = { ...query.price, $lte: Number(maxPrice) };
+
+//         // Group items by category using MongoDB's aggregation framework
+//         const itemsByCategory = await Item.aggregate([
+//             { $match: query }, // Apply filtering
+//             {
+//                 $group: {
+//                     _id: "$category", // Group by the `category` field
+//                     items: { $push: "$$ROOT" }, // Push the entire document into the `items` array
+//                 },
+//             },
+//             { $sort: { _id: 1 } }, // Sort categories alphabetically
+//         ]);
+
+//         res.status(200).json({ categories: itemsByCategory });
+//     } catch (err) {
+//         console.error("Error fetching items by category:", err);
+//         res.status(500).json({ message: "An error occurred while fetching items by category" });
+//     }
+// });
+
+
+app.get("/all-items-by-category", async (req, res) => {
+    try {
+        const { minPrice, maxPrice } = req.query;
+
+        const query = {};
+        if (minPrice) query.price = { ...query.price, $gte: Number(minPrice) };
+        if (maxPrice) query.price = { ...query.price, $lte: Number(maxPrice) };
+
+        // Fetch items grouped by category
+        const items = await Item.find(query).select("category imageUrl -_id"); // Select only `category` and `imageUrl`
+
+        // Format the response
+        const categories = items.map(item => ({
+            category: item.category,
+            imageUrl: item.imageUrl,
+        }));
+
+        res.status(200).json({
+            message: "Categories retrieved successfully",
+            items: categories,
+        });
+    } catch (err) {
+        console.error("Error fetching items by category:", err);
+        res.status(500).json({ message: "An error occurred while fetching categories" });
+    }
+});
+
+
 
 
 // Default Route
