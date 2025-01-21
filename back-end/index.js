@@ -855,6 +855,31 @@ app.put("/items/:id", authenticate, upload.single("image"), async (req, res) => 
         res.status(500).json({ message: "An error occurred while updating the item" });
     }
 });
+// Fetch All Items Without Authentication
+app.get("/all-items", async (req, res) => {
+    try {
+        const { category, minPrice, maxPrice, page = 1, limit = 10 } = req.query;
+
+        const query = {};
+        if (category) query.category = category;
+        if (minPrice) query.price = { ...query.price, $gte: Number(minPrice) };
+        if (maxPrice) query.price = { ...query.price, $lte: Number(maxPrice) };
+
+        const skip = (page - 1) * limit;
+        console.log("Query for all items:", query); // Log the query for debugging
+
+        const items = await Item.find(query).skip(skip).limit(Number(limit));
+        const total = await Item.countDocuments(query);
+
+        console.log("Fetched items for public view:", items); // Log fetched items
+
+        res.status(200).json({ items, total, page: Number(page), pages: Math.ceil(total / limit) });
+    } catch (err) {
+        console.error("Error fetching all items:", err);
+        res.status(500).json({ message: "An error occurred while fetching items" });
+    }
+});
+
 
 // Default Route
 app.use("/", (req, res) => {
