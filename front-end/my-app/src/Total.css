@@ -1,0 +1,98 @@
+* {
+  padding: 0px;
+  margin: 0px;
+}
+/* General Body Styling */
+/* body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f7fa;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+} */
+
+/* Container for the Product Table */
+.main {
+  width: 90%;
+  max-width: 1000px;
+  padding: 20px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 20px;
+  margin-left: 400px;
+  position: relative;
+  bottom: 730px;
+  border: 5 px solid red;
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+thead {
+  background-color: #4caf50;
+  color: white;
+}
+
+th,
+td {
+  padding: 12px;
+  text-align: left;
+}
+
+th {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+td {
+  font-size: 14px;
+}
+
+/* Alternating Row Colors for Table */
+tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* No Products Message */
+p {
+  font-size: 18px;
+  text-align: center;
+  color: #888;
+}
+
+/* Responsive Table for Mobile */
+@media (max-width: 600px) {
+  th,
+  td {
+    padding: 10px;
+    font-size: 12px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
+
+
+
+
+/* --------------img css------------------ */
+/* Image Container (for spacing) */
+.product-image-container {
+  display: flex;
+  justify-content: center;  /* Centers image horizontally */
+  align-items: center;      /* Centers image vertically */
+  margin: 10px 0;           /* Adds space above and below the image */
+}

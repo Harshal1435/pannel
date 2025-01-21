@@ -1,0 +1,121 @@
+/* Header styles */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #FAFAFA;
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+ 
+}
+
+.header-title {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+/* Right-side icons */
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.icon {
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Profile section */
+.profile {
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+/* RESPONSIVE DESIGN */
+
+/* On tablet screens */
+@media (max-width: 1024px) {
+  .header {
+    padding: 0 15px;
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .header-title {
+    font-size: 1rem;
+  }
+
+  .header-icons {
+    gap: 10px;
+  }
+}
+
+/* On mobile screens */
+@media (max-width: 768px) {
+  .header {
+    padding: 0 10px;
+  }
+
+  .sidebar-toggle {
+    display: block;
+  }
+
+  .header-title {
+    font-size: 1rem;
+  }
+
+  .header-icons {
+    gap: 8px;
+  }
+
+  .profile-pic {
+    width: 35px;
+    height: 35px;
+  }
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    padding: 10px 15px;
+  }
+
+  .header-title {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+
+  .header-icons {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .sidebar-toggle {
+    font-size: 1.2rem;
+  }
+}

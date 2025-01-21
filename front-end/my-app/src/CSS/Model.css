@@ -1,0 +1,109 @@
+/* Main Container */
+.add-product-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Form Heading */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.8rem;
+  color: #333;
+}
+
+/* Form Group */
+.add-product-form .form-group {
+  margin-bottom: 15px;
+}
+
+/* Labels */
+.add-product-form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+/* Inputs and Textarea */
+.add-product-form input,
+.add-product-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+/* Focus Effect */
+.add-product-form input:focus,
+.add-product-form textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Submit Button */
+.add-product-form .submit-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.add-product-form .submit-button:hover {
+  background-color: #0056b3;
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 768px) {
+  .add-product-container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  .add-product-form input,
+  .add-product-form textarea {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+
+  .add-product-form .submit-button {
+    font-size: 0.9rem;
+    padding: 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .add-product-container {
+    max-width: 95%;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  .add-product-form input,
+  .add-product-form textarea {
+    font-size: 0.85rem;
+    padding: 7px;
+  }
+
+  .add-product-form .submit-button {
+    font-size: 0.85rem;
+    padding: 7px;
+  }
+}
