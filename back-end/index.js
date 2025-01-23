@@ -302,7 +302,7 @@
 //     price: { type: Number, required: true },
 //     category: { type: String, required: true },
 //     imageUrl: { type: String },
-//     quantity: { type: Number, required: true},
+//     stock: { type: Number, required: true},
 
 // });
 
@@ -400,9 +400,9 @@
 // // Add Item with Image
 // app.post("/items", upload.single("image"), async (req, res) => {
 //     try {
-//         const { name, description, price, category,quantity } = req.body;
+//         const { name, description, price, category,stock } = req.body;
 
-//         if (!name || !description || price == null || !category||!quantity) {
+//         if (!name || !description || price == null || !category||!stock) {
 //             return res
 //                 .status(400)
 //                 .json({ message: "All fields (name, description, price, category) are required" });
@@ -426,7 +426,7 @@
 //             imageUrl = result.secure_url;
 //         }
 
-//         const newItem = new Item({ name, description, price, category, imageUrl,quantity });
+//         const newItem = new Item({ name, description, price, category, imageUrl,stock });
 //         const savedItem = await newItem.save();
 //         res
 //             .status(201)
@@ -533,7 +533,7 @@ const itemSchema = new mongoose.Schema({
     price: { type: Number, required: true },
     category: { type: String, required: true },
     imageUrl: { type: String },
-    quantity: { type: Number, required: true },
+    stock: { type: Number, required: true },
     userId: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 });
 
@@ -619,17 +619,17 @@ app.post("/login", async (req, res) => {
 // Add Item with Image
 app.post("/items", authenticate, upload.single("image"), async (req, res) => {
     try {
-        const { name, description, price, category, quantity } = req.body;
+        const { name, description, price, category, stock } = req.body;
 
         // Validate inputs
-        if (!name || !description || price == null || !category || !quantity) {
+        if (!name || !description || price == null || !category || !stock) {
             return res
                 .status(400)
-                .json({ message: "All fields (name, description, price, category, quantity) are required" });
+                .json({ message: "All fields (name, description, price, category, stock) are required" });
         }
 
-        if (price <= 0 || quantity <= 0) {
-            return res.status(400).json({ message: "Price and quantity must be greater than zero" });
+        if (price <= 0 || stock <= 0) {
+            return res.status(400).json({ message: "Price and stock must be greater than zero" });
         }
 
         let imageUrl = null;
@@ -657,7 +657,7 @@ app.post("/items", authenticate, upload.single("image"), async (req, res) => {
             price,
             category,
             imageUrl,
-            quantity,
+            stock,
             userId: req.userId,
         });
         const savedItem = await newItem.save();
@@ -702,14 +702,14 @@ app.put("/items/:id", authenticate, upload.single("image"), async (req, res) => 
             return res.status(400).json({ message: "Invalid ID format" });
         }
 
-        const { name, description, price, category, quantity } = req.body;
+        const { name, description, price, category, stock } = req.body;
 
         // Validate inputs
         if (price != null && price <= 0) {
             return res.status(400).json({ message: "Price must be greater than zero" });
         }
-        if (quantity != null && quantity <= 0) {
-            return res.status(400).json({ message: "Quantity must be greater than zero" });
+        if (stock != null && stock <= 0) {
+            return res.status(400).json({ message: "stock must be greater than zero" });
         }
 
         let imageUrl;
@@ -731,7 +731,7 @@ app.put("/items/:id", authenticate, upload.single("image"), async (req, res) => 
 
         const updatedItem = await Item.findByIdAndUpdate(
             id,
-            { name, description, price, category, quantity, ...(imageUrl && { imageUrl }) },
+            { name, description, price, category, stock, ...(imageUrl && { imageUrl }) },
             { new: true }
         );
 
@@ -785,12 +785,12 @@ app.put("/items/:id", authenticate, upload.single("image"), async (req, res) => 
             return res.status(400).json({ message: "Invalid ID format" });
         }
 
-        const { name, description, price, category, quantity } = req.body;
+        const { name, description, price, category, stock } = req.body;
         if (price != null && price <= 0) {
             return res.status(400).json({ message: "Price must be greater than zero" });
         }
-        if (quantity != null && quantity <= 0) {
-            return res.status(400).json({ message: "Quantity must be greater than zero" });
+        if (stock != null && stock <= 0) {
+            return res.status(400).json({ message: "stock must be greater than zero" });
         }
 
         // Find the item to get the old image URL
@@ -826,7 +826,7 @@ app.put("/items/:id", authenticate, upload.single("image"), async (req, res) => 
         // Update the item in MongoDB
         const updatedItem = await Item.findByIdAndUpdate(
             id,
-            { name, description, price, category, quantity, imageUrl },
+            { name, description, price, category, stock, imageUrl },
             { new: true }
         );
 
@@ -837,6 +837,29 @@ app.put("/items/:id", authenticate, upload.single("image"), async (req, res) => 
     }
 });
 // Fetch All Items Without Authentication
+// app.get("/all-items", async (req, res) => {
+//     try {
+//         const { category, minPrice, maxPrice, page = 1, limit = 10 } = req.query;
+
+//         const query = {};
+//         if (category) query.category = category;
+//         if (minPrice) query.price = { ...query.price, $gte: Number(minPrice) };
+//         if (maxPrice) query.price = { ...query.price, $lte: Number(maxPrice) };
+
+//         const skip = (page - 1) * limit;
+//         console.log("Query for all items:", query); // Log the query for debugging
+
+//         const items = await Item.find(query).skip(skip).limit(Number(limit));
+//         const total = await Item.countDocuments(query);
+
+//         console.log("Fetched items for public view:", items); // Log fetched items
+
+//         res.status(200).json({ items, total, page: Number(page), pages: Math.ceil(total / limit) });
+//     } catch (err) {
+//         console.error("Error fetching all items:", err);
+//         res.status(500).json({ message: "An error occurred while fetching items" });
+//     }
+// });
 app.get("/all-items", async (req, res) => {
     try {
         const { category, minPrice, maxPrice, page = 1, limit = 10 } = req.query;
@@ -849,19 +872,31 @@ app.get("/all-items", async (req, res) => {
         const skip = (page - 1) * limit;
         console.log("Query for all items:", query); // Log the query for debugging
 
-        const items = await Item.find(query).skip(skip).limit(Number(limit));
+        // Fetch items and populate the user details
+        const items = await Item.find(query)
+            .skip(skip)
+            .limit(Number(limit))
+            .populate("userId", "name"); // Populate `name` field from the User model
+
         const total = await Item.countDocuments(query);
 
-        console.log("Fetched items for public view:", items); // Log fetched items
+        // Map over items to include the user's name as manufacturer name and exclude userId
+        const itemsWithManufacturerName = items.map(item => {
+            const { userId, ...itemDetails } = item.toObject(); // Destructure to exclude userId
+            return {
+                manufacturerName: userId.name, // Add manufacturer name at the top
+                ...itemDetails // Spread the rest of the item details
+            };
+        });
 
-        res.status(200).json({ items, total, page: Number(page), pages: Math.ceil(total / limit) });
+        console.log("Fetched items for public view with user names:", itemsWithManufacturerName); // Log fetched items
+
+        res.status(200).json({ items: itemsWithManufacturerName, total, page: Number(page), pages: Math.ceil(total / limit) });
     } catch (err) {
         console.error("Error fetching all items:", err);
         res.status(500).json({ message: "An error occurred while fetching items" });
     }
 });
-
-
 // Fetch Items Grouped by Category Without Authentication
 // app.get("/all-items-by-category", async (req, res) => {
 //     try {
