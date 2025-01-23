@@ -351,7 +351,7 @@ function AddProductModal({  handleCloseModal }) {
           price: '',
           category: '',
           quantity: '',
-          image: null,
+          image: "",
         });
 
         handleCloseModal(); // Close the modal
