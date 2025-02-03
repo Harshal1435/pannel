@@ -164,7 +164,7 @@
 // //                 <th>Description</th>
 // //                 <th>Price</th>
 // //                 <th>Category</th>
-// //                 <th>quantity</th>
+// //                 <th>stock</th>
 // //                 <th>Image</th>
 // //                 <th>Action</th>
 // //               </tr>
@@ -176,7 +176,7 @@
 // //                   <td>{product.description}</td>
 // //                   <td>₹{product.price}</td>
 // //                   <td>{product.category}</td>
-// //                   <td>{product.quantity}</td>
+// //                   <td>{product.stock}</td>
 // //                   <td>
 // //                     {product.imageUrl ? (
 // //                       <img
@@ -223,7 +223,7 @@
 //     description: "",
 //     price: "",
 //     category: "",
-//     quantity: "",
+//     stock: "",
 //     imageUrl: "",
 //   });
 //   // Fetch products from the backend
@@ -287,7 +287,7 @@
 //       description: product.description,
 //       price: product.price,
 //       category: product.category,
-//       quantity: product.quantity,
+//       stock: product.stock,
 //       image:product.imageUrl
 //     });
 //   };
@@ -355,7 +355,7 @@
 //                   <th>Description</th>
 //                   <th>Price</th>
 //                   <th>Category</th>
-//                   <th>Quantity</th>
+//                   <th>stock</th>
 //                   <th>Image</th>
 //                   <th>Action</th>
 //                 </tr>
@@ -367,7 +367,7 @@
 //                     <td>{product.description}</td>
 //                     <td>₹{product.price}</td>
 //                     <td>{product.category}</td>
-//                     <td>{product.quantity}</td>
+//                     <td>{product.stock}</td>
 //                     <td>
 //                       {product.imageUrl ? (
 //                         <img
@@ -454,18 +454,18 @@
 //                   />
 //                 </label>
 //                 <label>
-//                   Quantity:
+//                   stock:
 //                   <input
 //                     type="number"
-//                     name="quantity"
-//                     value={formValues.quantity}
+//                     name="stock"
+//                     value={formValues.stock}
 //                     onChange={handleInputChange}
 //                     required
 //                   />
 //                 </label>
 
 //                 <label>
-//                   Quantity:
+//                   stock:
 //                   <input
 //                     type="file"
 //                     name="image"
@@ -506,7 +506,7 @@ function Views() {
     description: "",
     price: "",
     category: "",
-    quantity: "",
+    stock: "",
     imageUrl: "", // Use for image URL if already present
     imageFile: null, // For file input
   });
@@ -565,7 +565,7 @@ function Views() {
       description: product.description,
       price: product.price,
       category: product.category,
-      quantity: product.quantity,
+      stock: product.stock,
       imageUrl: product.imageUrl, // Set image URL
       imageFile: null, // Reset file input when editing
     });
@@ -597,7 +597,7 @@ function Views() {
     formData.append("description", formValues.description);
     formData.append("price", formValues.price);
     formData.append("category", formValues.category);
-    formData.append("quantity", formValues.quantity);
+    formData.append("stock", formValues.stock);
 
     if (formValues.imageFile) {
       formData.append("image", formValues.imageFile); // Append file to formData
@@ -650,7 +650,7 @@ function Views() {
                   <th>Description</th>
                   <th>Price</th>
                   <th>Category</th>
-                  <th>Quantity</th>
+                  <th>stock</th>
                   <th>Image</th>
                   <th>Action</th>
                 </tr>
@@ -662,7 +662,7 @@ function Views() {
                     <td>{product.description}</td>
                     <td>₹{product.price}</td>
                     <td>{product.category}</td>
-                    <td>{product.quantity}</td>
+                    <td>{product.stock}</td>
                     <td>
                       {product.imageUrl ? (
                         <img
@@ -746,11 +746,11 @@ function Views() {
               />
             </label>
             <label>
-              Quantity:
+              stock:
               <input
                 type="number"
-                name="quantity"
-                value={formValues.quantity}
+                name="stock"
+                value={formValues.stock}
                 onChange={handleInputChange}
                 required
               />

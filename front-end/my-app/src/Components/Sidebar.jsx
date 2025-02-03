@@ -3,10 +3,12 @@ import { Link } from "react-router-dom";
 import "../CSS/Sidebar.css";
 
 const Sidebar = ({ isCollapsed }) => {
+
+  const Username = localStorage.getItem("name");
   return (
     <div className={`sidebar ${isCollapsed ? "collapsed" : ""}`}>
       <div className="profile">
-        {!isCollapsed && <h3>John David</h3>}
+        {!isCollapsed && <h3>{Username}</h3>}
         {/* <span className="role">{!isCollapsed && "Manufacturer"}</span> */}
       </div>
 
@@ -20,7 +22,7 @@ const Sidebar = ({ isCollapsed }) => {
         <Link to="/dashboard/AddProduct" className="menu-item">
           <i className="fas fa-table"></i> {!isCollapsed && "AddProduct"}
         </Link>
-        <Link to="/" className="menu-item">
+        <Link to="/dashboard/Setting" className="menu-item">
           <i className="fas fa-cogs"></i> {!isCollapsed && "Settings"}
         </Link>
       </nav>

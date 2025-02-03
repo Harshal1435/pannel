@@ -80,6 +80,7 @@ import Views from "../Components/Views";
 import "../CSS/new.css" // Views Component
 import Header from "../Components/Header"
 import Modal from "../Components/Modal";
+import Setting from "../Components/Setting";
 
 
 
@@ -112,6 +113,8 @@ const Dashboard = () => {
 
           {/* Add more routes as needed */}
           <Route path="/AddProduct" element={<Modal />} />
+          <Route path="/Setting" element={<Setting />} />
+
         </Routes>
         </div>
       </div>

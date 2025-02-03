@@ -112,12 +112,14 @@ function LoginForm({ toggleForm, onLoginSuccess }) {
 
       if (response.ok) {
         const data = await response.json(); // Parse the JSON response
-        const { token, role } = data; // Extract token and role from response
-
-        // Store the token in localStorage
+        const { token, role, email, id, name } = data; // Extract token, role, email, id, and name from response
+        console.log(data);
+        // Store the token, role, email, id, and name in localStorage
         localStorage.setItem("token", token);
-        localStorage.setItem("role", role); // Optional: store the role if needed
-
+        localStorage.setItem("role", role);
+        localStorage.setItem("email", email);
+        localStorage.setItem("id", id);   // Store the user ID
+        localStorage.setItem("name", name); 
         setMessage("Login successful!");
         setFormData({ email: "", password: "" });
         onLoginSuccess(); // Notify parent about authentication
